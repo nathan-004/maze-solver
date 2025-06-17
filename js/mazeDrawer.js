@@ -1,4 +1,6 @@
-class Grid {
+import {Colors} from "./constants.js"
+
+export class Grid {
     constructor(numberWidth, numberHeight, padding = 0) {
         this.numberWidth = numberWidth;
         this.numberHeight = numberHeight;
@@ -11,11 +13,11 @@ class Grid {
 
         window.addEventListener("resize", () => {
             this.setupCanvas();
-            this.draw();
+            this.drawBlank();
         });
         
-        this.lineColor = "black";
-        this.fillColorPath = "black";
+        this.lineColor = Colors.lineColor;
+        this.fillColorPath = Colors.pathColor;
     }
 
     setupCanvas() {
@@ -61,6 +63,15 @@ class Grid {
         }
     }
 
+    draw(grid) {
+        console.log("test");
+        grid.forEach((line, y) => {
+            line.forEach((state, x) => {
+                this.fillCell(x, y, Colors.colors[state]);
+            });
+        });
+    }
+
     fillCell(i, j, color) {
         const x = this.padding + i * this.cellWidth;
         const y = this.padding + j * this.cellHeight;
@@ -69,7 +80,3 @@ class Grid {
         this.context.fillRect(x, y, this.cellWidth, this.cellHeight);
     }
 }
-
-const grid = new Grid(200, 100); // 50x50 cases
-grid.drawBlank();
-grid.fillCell(100, 50, "red");
