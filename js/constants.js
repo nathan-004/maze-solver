@@ -4,6 +4,8 @@ export class Colors {
   static wallColor = "black";
   static startColor = "green";
   static endColor = "red";
+  static visitedColor = "gray";
+  static resultColor = "blue";
 
   static colors = [
     this.pathColor,
@@ -11,4 +13,8 @@ export class Colors {
     this.startColor,
     this.endColor,
   ]
+}
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

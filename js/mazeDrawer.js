@@ -64,7 +64,6 @@ export class Grid {
     }
 
     draw(grid) {
-        console.log("test");
         grid.forEach((line, y) => {
             line.forEach((state, x) => {
                 this.fillCell(x, y, Colors.colors[state]);

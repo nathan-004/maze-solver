@@ -1,15 +1,12 @@
 import {Grid} from "./mazeDrawer.js"
-import {Colors} from "./constants.js"
+import {Colors, sleep} from "./constants.js"
+import {Solver} from "./mazeSolver.js"
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function getCellsAround(grid, indexX, indexY) {
@@ -110,3 +107,5 @@ class Maze {
 
 var maze = new Maze(50, 24);
 maze.create("DFS");
+var solver = new Solver(maze.grid);
+solver.dfs();
