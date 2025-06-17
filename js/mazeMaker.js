@@ -65,7 +65,7 @@ async function createDFS(grid) {
             stack.push(...neighbors);
         }
         display.draw(grid);
-        await sleep(0.1);
+        await sleep(0.01);
     }
 }
 
@@ -81,10 +81,32 @@ class Maze {
         this.numberHeight = numberHeight;
     }
 
-    create(createFunction) {
-        Maze.createFunctions[createFunction](this.grid);
+    async create(createFunction) {
+        await Maze.createFunctions[createFunction](this.grid); // Modifie this.grid pour faire un labyrinthe
+
+        var stop = false;
+        for (let y = 0; y < this.grid.length && !stop; y++) {
+            for (let x = 0; x < this.grid[0].length && !stop; x++) {
+                if (this.grid[y][x] === 0) {
+                    this.grid[y][x] = 2;
+                    stop = true;
+                }
+            }
+        }
+
+        var stop = false;
+        for (let y = this.grid.length - 1; y >= 0 && !stop; y--) {
+            for (let x = this.grid[0].length - 1; x >= 0 && !stop; x--) {
+                if (this.grid[y][x] === 0) {
+                    this.grid[y][x] = 3;
+                    stop = true;
+                }
+            }
+        }
+
+        new Grid(this.numberWidth, this.numberHeight).draw(this.grid);
     }
 }
 
-var maze = new Maze(200, 100);
+var maze = new Maze(50, 24);
 maze.create("DFS");
