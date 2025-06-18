@@ -62,7 +62,7 @@ async function createDFS(grid) {
             stack.push(...neighbors);
         }
         display.draw(grid);
-        await sleep(0.01);
+        await sleep(0.0001);
     }
 }
 
@@ -105,7 +105,13 @@ class Maze {
     }
 }
 
-var maze = new Maze(50, 24);
-maze.create("DFS");
-var solver = new Solver(maze.grid);
-solver.dfs();
+async function main () {
+    var maze = new Maze(100, 50);
+    window.alert("Création...");
+    await maze.create("DFS");
+    window.alert("Résolution...");
+    var solver = new Solver(maze.grid);
+    solver.dfs();
+}
+
+main();

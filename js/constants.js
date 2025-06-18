@@ -12,6 +12,8 @@ export class Colors {
     this.wallColor,
     this.startColor,
     this.endColor,
+    this.visitedColor,
+    this.resultColor,
   ]
 }
 

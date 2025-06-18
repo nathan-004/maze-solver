@@ -24,7 +24,6 @@ function availableCells(grid, indexX, indexY) {
 export class Solver {
     constructor (grid) {
         this.grid = grid;
-        console.log(grid, this.grid[0]);
 
         this.startX = -1;
         this.startY = -1;
@@ -33,7 +32,6 @@ export class Solver {
         this.grid.forEach((line, y) => {
             if (stop) {return};
             line.forEach((cell, x) => {
-                console.log(cell);
                 if (stop) {return};
                 if (cell === 2) {
                     this.startX = x;
@@ -63,7 +61,7 @@ export class Solver {
             stack.push(...neighbors);
 
             display.draw(this.grid);
-            await sleep(1);
+            await sleep(1.5);
         }
     }
 }
