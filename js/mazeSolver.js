@@ -10,13 +10,20 @@ function availableCells(grid, indexX, indexY) {
         [1, 0]   // droite
     ];
 
-    directions.forEach(([dx, dy]) => {
+    for (let i = 0; i < directions.length; i++) {
+        const [dx, dy] = directions[i];
         const x = indexX + dx;
         const y = indexY + dy;
-        if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length && grid[y][x] === 0) {
-            neighbors.push([x,y]);
+        if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length) {
+            if (grid[y][x] === 0) {
+                neighbors.push([x, y]);
+            }
+            else if (grid[y][x] === 3) {
+                console.log(grid[y][x]);
+                return "Win";
+            }
         }
-    });
+    }
 
     return neighbors;
 }
@@ -50,18 +57,31 @@ export class Solver {
         var neighbors = [];
 
         var stack = [[currentX, currentY],];
+        var pathIndexs = [];
         
         while (stack.length != 0) {
-            console.log(stack);
             var [currentX, currentY] = stack.pop();
-
             this.grid[currentY][currentX] = 4;
             neighbors = availableCells(this.grid, currentX, currentY);
-            console.log(neighbors);
+            if (neighbors == "Win") {
+                break;
+            }
+
+            if (neighbors.length > 1) {
+                pathIndexs.push([currentX, currentY]);
+            }
+            else if (neighbors.length == 0) {
+                pathIndexs.pop();
+            }
             stack.push(...neighbors);
 
             display.draw(this.grid);
             await sleep(1.5);
         }
+
+        pathIndexs.forEach(pos => {
+            this.grid[pos[1]][pos[0]] = 5;
+        });
+        display.draw(this.grid);
     }
 }
